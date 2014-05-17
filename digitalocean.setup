@@ -1,0 +1,11 @@
+Author: Max Hubenthal
+Project: www.maxhubenthal.com
+Subject: Digital Ocean setup notes
+
+Date: 2014.05.17
+
+Digital Ocean was chosen as a host for its lightweight and hands-on nature. It seems to appeal to people who like to code and aren't afraid of *nix commands, and I like those kinds of people.
+
+An account was created, and then a "Droplet" (Digital Ocean's term for their VPS) was created in the "New York 2" datacenter. By using NY as the the home for the VPS, it will allow my Droplet to other future Droplets without adding to the bandwidth costs (database replications, file storage, etc...).
+
+I chose a VPS running Linux with Ubuntu 14.04 x64 setup. It took a little under two minutes. I received initial login info, and SSHed into the VPS on a default port. After this, all of the setup for the VPS went into the OS and software options.

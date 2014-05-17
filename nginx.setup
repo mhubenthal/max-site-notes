@@ -1,0 +1,59 @@
+Author: Max Hubenthal
+Project: www.maxhubenthal.com
+Subject: Nginx setup notes
+
+Date: 2014.05.17
+
+At first I wanted to implement my own HTTP server. It would be very easy to implement a simple server, especially with tools like node.js or any other language/tool with network capabilities.
+
+I decided against this for now (though I am very interested in the various RFC documents concerning protocols, and I think it would be cool to implement some of them).
+
+There are too many fine-grained details concerning performance, security and customizeability to consider out of the gate. It makes more sense for me to put my energy into the implementation of the site and the bigger picture task of combining all of the appropriate tools for the job and not trying to reinvent anything unless I absolutely can't find an open source tool.
+
+I chose Nginx for its lightweight nature, and I was also attracted to its power in serving many connects (due to event-driven programming and many connections sharing many threads, as opposed to Apache's one thread => one connection approach).
+
+Again, Digital Ocean's documentation was especially helpful, and I'll summarize various items as I go along (https://www.digitalocean.com/community/articles/how-to-install-nginx-on-ubuntu-14-04-lts, https://www.digitalocean.com/community/articles/how-to-set-up-nginx-server-blocks-virtual-hosts-on-ubuntu-14-04-lts, https://www.digitalocean.com/community/articles/how-to-set-up-http-authentication-with-nginx-on-ubuntu-12-10).
+
+To install Nginx on Ubuntu:
+$ sudo apt-get update
+$ sudo apt-get install nginx
+
+To start/stop/restart Nginx:
+$ sudo service nginx start/stop/restart
+
+To do a basic test of Nginx configs:
+$ sudo nginx -t
+
+Make sure that Nginx will restart automatically when the VPS is rebooted:
+$ sudo update-rc.d nginx defaults
+Which should output:
+$ System start/stop links for /etc/init.d/nginx already exist.
+
+I chose not to set up a LEMP stack, as I'm most interested in getting down and dirty with all the moving parts I can, and investigating some of the newer technologies and how they work together.
+
+Nginx uses a declarative approach to the setup and has potential to incorporate many programming languages server-side as well as the FastCGI protocol. At this point I have just focused on basic setup/security and getting rid of any "default" settings included out of the box.
+
+The main file for setting up Nginx is nginx.conf in /etc/nginx/nginx.conf. It includes default settings to serve up the default Nginx index.html to localhost and a request over port 80 from ANY domain.
+
+Nginx uses four contexts: http, events, server and location. The nginx.config file is considered the "main" context. Events and http reside in main, server in http, and location in server.
+
+Using the the "include" directive is a good way to keep the config organized. I placed "include /etc/nginx/sites-enabled/maxhubenthal.com" in the http context. This links to another smaller file containing the "server" blocks defined for maxhubenthal.com. I included one block to deny requests from any domain other than maxhubenthal.com:
+
+server {
+  server_name _; #Catches any domain other than the intended
+  deny all; #Returns a 403
+}
+
+I also declared a root for the site and an index for the site:
+
+root /var/www/maxhubenthal.com;
+index index.html;
+
+Nginx documentation encourages use of the "try_files" directive over the "if" directive for performance issues. My server block has one location block:
+
+location / { #Catches any URI
+  #Tries to serve request as a file, then a directory, then falls back to a 404
+  try_files $uri $uri/ =404; 
+}
+
+Most likely I will tweak this setup more for security and performance. I intend on setting up the site as a SPA, but doubtless there will be database/resource/etc. reasons to fine tune the server.

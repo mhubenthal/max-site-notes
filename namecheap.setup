@@ -1,0 +1,9 @@
+Author: Max Hubenthal
+Project: www.maxhubenthal.com
+Subject: Namecheap setup notes
+
+Date: 2014.05.17
+
+I purchased "maxhubenthal.com" from Namecheap and chose to use Namecheap as the domain name server. I briefly looked into writing my own Nameserver, but the convenience of Namecheap (or most any web-facing services) outweighed that option.
+
+Nothing tricky to the setup here, once I obtained my VPS through Digital Ocean, I logged into Namecheap and pointed my domain at the VPS.

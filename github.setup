@@ -1,0 +1,20 @@
+Author: Max Hubenthal
+Project: www.maxhubenthal.com
+Subject: Github setup notes
+
+Date: 2014.05.17
+
+These site setup notes as well as the full website are stored in repos through my Github account (user: "mhubenthal"). All public site info would have been public anyway, and any server-side or sensitive info will not be published there.
+
+In my VPS through Digital ocean, the full site is stored at "/var/www/maxhubenthal.com". These steps were taken to clone the repo and fetch any changes(from "https://help.github.com/articles/fork-a-repo").
+
+Clone:
+
+$ git clone https://github.com/mhubenthal/maxhubenthal.com
+
+Get/merge upstream changes:
+
+$ git fetch origin
+$ git merge origin/master
+
+**(At this point, updated the VPS to the most recent version of the site requires SSH-ing in, and manually using git to update. A more efficient/secure method of publishing changes to the live site from production will be investigated. Possibly git daemon, cron job or some shell script?)** 

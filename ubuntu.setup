@@ -1,0 +1,51 @@
+Author: Max Hubenthal
+Project: www.maxhubenthal.com
+Subject: Ubuntu setup notes
+
+Date: 2014.05.17
+
+Digital Ocean's tutorials were indispensible for setting up Ubuntu (https://www.digitalocean.com/community/articles/initial-server-setup-with-ubuntu-14-04). I will present a condensed version here for my own reference.
+
+Step One -- Root Login
+
+$ ssh root@server_ip_address
+
+(type "yes" to accept new unknown remote server connection)
+
+Step Two -- Change Password
+
+$ passwd
+
+Step Three -- Add User
+
+(do this to avoid working as the root user on a day-to-day basis and possibly making destructive changes)
+
+$ adduser new_name
+
+Step Four -- Add Root (sudo) Privileges
+
+$ visudo
+
+(scroll down to this section:
+  # User privilege specification
+  root ALL=(ALL:ALL) ALL
+
+add this line:
+  new_name ALL=(ALL:ALL) ALL)
+
+Step Five -- Configure SSH
+
+$ nano /etc/ssh/sshd_config
+
+(change SSH port "Port 22" to something between 1025 and 65536, disable root logins "PermitRootLogin no", explicitly permit only certain users "AllowUsers new_name")
+
+Step Six -- Reload SSH
+
+$ service ssh restart
+
+To exit the VPS type "exit".
+
+This was enough for me to get up and running with Ubuntu. I hadn't used Linux much, but most of the commands are very similar to Unix, and the new ones wer fun to learn. One of the key command line tools was "apt" (Advanced Package Tool), which is not present in my Mac flavor of Unix. I used it to install softare and update packages.
+
+$ sudo apt-get update
+$ sudo apt-get updgrade
