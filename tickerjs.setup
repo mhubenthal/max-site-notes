@@ -1,0 +1,11 @@
+Author: Max Hubenthal
+Project: www.maxhubenthal.com
+Subject: ticker.js development notes 
+
+Date: 2014.05.30
+
+In thinking about the temporary landing page for maxhubenthal.com, I decided to create a small library, ticker.js, to display a message ticker for the "Coming Soon" page.
+
+V1 of ticker.js is certainly far from optimized. The code feels a bit too verbose and heavy for the lightweight needs of the web. I'll cross that bridge the more I use it, it may well need to be optimized later.
+
+The bit of data (the arrays of coordinates for drawing each character) that resides in the code also seems out of place, but again, if it doesn't harm performance it should be ok.
