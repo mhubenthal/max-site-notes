@@ -2,10 +2,14 @@ Author: Max Hubenthal
 Project: www.maxhubenthal.com
 Subject: ticker.js development notes 
 
-Date: 2014.05.30
+Date: 2014.06.02
 
-In thinking about the temporary landing page for maxhubenthal.com, I decided to create a small library, ticker.js, to display a message ticker for the "Coming Soon" page.
+Version one of ticker.js attaches a variable to the global context. The user includes a <canvas> element on the page with id="tkr_canvas". 
+They can then call methods to start/pause ticker, set the message, set the speed or set the text color.
 
-V1 of ticker.js is certainly far from optimized. The code feels a bit too verbose and heavy for the lightweight needs of the web. I'll cross that bridge the more I use it, it may well need to be optimized later.
-
-The bit of data (the arrays of coordinates for drawing each character) that resides in the code also seems out of place, but again, if it doesn't harm performance it should be ok.
+It was a challenge to figure out the structure of the library, and it will certainly be refined in future versions. 
+Right now it is contained in an IIFE (immediately invoked function expression).
+The public methods are returned as properties on the tkr object attached to the global context. 
+All private methods are implemented as function declarations.
+A private object with unique prototypal properties is created to hold each char pattern and track its movement through the canvas.
+A lightweight JSON data structure is included in the library to store the instructions for drawing each "pixelated" char to the canvas.
