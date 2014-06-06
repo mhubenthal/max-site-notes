@@ -2,19 +2,18 @@ Author: Max Hubenthal
 Project: www.maxhubenthal.com
 Subject: Github setup notes
 
-Date: 2014.05.17
+Date: 2014.06.06
 
 These site setup notes as well as the full website are stored in repos through my Github account (user: "mhubenthal"). All public site info would have been public anyway, and any server-side or sensitive info will not be published there.
 
-In my VPS through Digital ocean, the full site is stored at "/var/www/maxhubenthal.com". These steps were taken to clone the repo and fetch any changes(from "https://help.github.com/articles/fork-a-repo").
+In my VPS through Digital Ocean, the full site is stored at "/var/www/maxhubenthal.com".
 
-Clone:
+Another good Digital Ocean tutorial on setting up automatic deployment to a VPS:
 
-$ git clone https://github.com/mhubenthal/maxhubenthal.com
+https://www.digitalocean.com/community/articles/how-to-set-up-automatic-deployment-with-git-with-a-vps
 
-Get/merge upstream changes:
-
-$ git fetch origin
-$ git merge origin/master
-
-**(At this point, updated the VPS to the most recent version of the site requires SSH-ing in, and manually using git to update. A more efficient/secure method of publishing changes to the live site from production will be investigated. Possibly git daemon, cron job or some shell script?)** 
+I had to take a few additional steps to get it to work.
+On the VPS, for both "var/www/maxhubenthal.com" and "var/repo/site.git" I had to run "sudo chown -R max *" to allow the user to have permissions over the directory.
+I also had to make sure that the "var/www/maxhubenthal.com" directory was completely empty to work in the beginning.
+On my local machine, in the maxhubenthal.com project directory, I added lines to the ".git/config" file to allow for a new defined remote "all" which when called ("git push all master") pushes changes to the VPS as well as Github.
+Or I can push to Github or the VPS separately from each other ("git push origin master" or "git push live master" respectively).
