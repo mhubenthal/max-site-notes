@@ -1,0 +1,12 @@
+Author: Max Hubenthal
+Project: www.maxhubenthal.com
+Subject: gol.js development notes 
+
+Date: 2014.07.11
+
+Version one of gol.js attaches a variable to the global context.
+The library is written within an IIFE.
+The user includes a <canvas> element on the page with id="gol_canvas". 
+They can then call methods to play, pause and clear the board. There are also methods to change the colors and speed of the board on the fly.
+The gol API also includes method to create a small random group of cells in the center of the board. 
+The user can select cells on the board with the mouse as well.
